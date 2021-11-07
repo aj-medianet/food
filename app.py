@@ -56,7 +56,6 @@ def del_rest(cur, rest_name):
 
 
 def add_order(cur, rest_name, dish, rating):
-    st.write(rest_name, dish, rating)
     name = ''.join(rest_name)
     cur.execute("INSERT INTO orders(restaurant, dish, rating) VALUES(?, ?, ?)",(name, dish, rating))
     conn.commit()
@@ -64,7 +63,6 @@ def add_order(cur, rest_name, dish, rating):
 
 def get_dishes(cur, rest_name):
     query = "SELECT dish FROM orders where restaurant=\'%s\'" % rest_name
-    st.write(query)
     cur.execute(query)
     return cur.fetchall()
 
@@ -114,7 +112,6 @@ if conn:
     elif choice == "Add Restaurant":
         # add rest form
         with st.form(key="add_rest"):
-            st.write("Add New Restaurant")
             add_rest_name = st.text_input("Restaurant Name")
             submit_add = st.form_submit_button(label='Add')
 
