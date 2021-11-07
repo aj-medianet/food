@@ -27,7 +27,7 @@ def get_restaurants(cur):
 
 
 def select_restaurant(restaurants):
-    return st.selectbox('Select Restaurant', (restaurants))
+    return st.selectbox('', (restaurants))
 
 
 def show_restaurant(cur, restaurant):
