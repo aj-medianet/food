@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import sqlite3
 from pathlib import Path
@@ -75,7 +74,7 @@ if conn:
             show_restaurant(cur, "".join(restaurant))
     
     elif choice == "Add Order":
-        # add rest form
+        # add order form
         with st.form(key="add_order"):
             st.write("Add New Order")
             rest_name = st.selectbox("Restaurant Name", restaurants)
