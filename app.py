@@ -67,7 +67,7 @@ if conn:
     cur = conn.cursor()
     restaurants = get_restaurants(cur)
     
-    menu = ["Home", "Add Order", "Add Restaurant", "Delete Restaurant"]
+    menu = ["Home", "Add Order", "Add Restaurant", "Delete Restaurant", "Download Database"]
     choice = st.sidebar.selectbox("", menu)
 
     if choice == 'Home':
@@ -106,6 +106,13 @@ if conn:
         if submit_delete:
             del_rest(cur, del_rest_name)
 
-
+    elif choice == "Download Database":
+        with open(db_file, "rb") as fp:
+            btn = st.download_button(
+                label="Download Database",
+                data=fp,
+                file_name="food.sqlite",
+                mime="application/octet-stream"
+            )
     
 
