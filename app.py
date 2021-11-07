@@ -62,12 +62,26 @@ def add_order(cur, rest_name, dish, rating):
     conn.commit()
     st.success("Successfully Added {}".format(dish))
 
+def get_dishes(cur, rest_name):
+    query = "SELECT dish FROM orders where restaurant=\'%s\'" % rest_name
+    st.write(query)
+    cur.execute(query)
+    return cur.fetchall()
+
+def delete_order(cur, rest_name, dish):
+    rest = ''.join(rest_name)
+    d = ''.join(dish)
+    query = "DELETE FROM orders WHERE restaurant=\'%s\' AND dish=\'%s\'" % (rest, d)
+    cur.execute(query)
+    conn.commit()
+    st.success("Deleted {} from {}".format(d, rest))
+
 
 if conn:
     cur = conn.cursor()
     restaurants = get_restaurants(cur)
     
-    menu = ["Home", "Add Order", "Add Restaurant", "Delete Restaurant", "Download Database"]
+    menu = ["Home", "Add Order", "Delete Order", "Add Restaurant", "Delete Restaurant", "Download Database"]
     choice = st.sidebar.selectbox("", menu)
 
     if choice == 'Home':
@@ -78,7 +92,6 @@ if conn:
     elif choice == "Add Order":
         # add order form
         with st.form(key="add_order"):
-            st.write("Add New Order")
             rest_name = st.selectbox("Restaurant Name", restaurants)
             dish = st.text_input("Dish")
             rating = st.text_input("Rating")
@@ -86,6 +99,17 @@ if conn:
 
         if submit_add_order:
             add_order(cur, rest_name, dish, rating)
+
+    elif choice == "Delete Order":
+        # delete order form
+        with st.form(key="delete_order"):
+            rest_name = st.selectbox("Restaurant Name", restaurants)
+            dishes = get_dishes(cur, rest_name)
+            dish = st.selectbox("Dish", dishes)
+            submit_delete_order = st.form_submit_button(label='Delete Order')
+
+        if submit_delete_order:
+            delete_order(cur, rest_name, dish)
     
     elif choice == "Add Restaurant":
         # add rest form
