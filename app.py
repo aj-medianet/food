@@ -4,10 +4,10 @@ import sqlite3
 from pathlib import Path
 
 st.set_page_config(page_title="Food App")
-st.sidebar.title('Food App')
+st.title('Food App')
 
 db_file = Path("./food.sqlite")
-conn =sqlite3.connect(db_file)
+conn = sqlite3.connect(db_file)
 
 
 def show_all_restaurants(cur):
@@ -82,7 +82,7 @@ if conn:
     restaurants = get_restaurants(cur)
     
     menu = ["Home", "Add Order", "Delete Order", "Add Restaurant", "Delete Restaurant", "Download Database"]
-    choice = st.sidebar.selectbox("", menu)
+    choice = st.selectbox("", menu)
 
     if choice == 'Home':
         restaurant = select_restaurant(restaurants)
