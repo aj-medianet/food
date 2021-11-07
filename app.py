@@ -3,7 +3,9 @@ import pandas as pd
 import sqlite3
 from pathlib import Path
 
+st.set_page_config(page_title="Food App")
 st.sidebar.title('Food App')
+
 db_file = Path("./food.sqlite")
 conn =sqlite3.connect(db_file)
 
